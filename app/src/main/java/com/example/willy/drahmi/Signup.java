@@ -56,8 +56,8 @@ public class Signup extends AppCompatActivity {
                     db.insertUser(name,prenom, usertext, passText);
                     Toast.makeText(getApplicationContext(), "Thank you", Toast.LENGTH_LONG).show();
 
-                    Intent i = new Intent(getApplicationContext(), TheLogin.class);
-                    startActivity(i);
+                    Intent intent = new Intent(getApplicationContext(), TheLogin.class);
+                    startActivity(intent);
                 }
 
             }
