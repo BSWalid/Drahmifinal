@@ -1,0 +1,217 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:weightSum="12"
+    android:orientation="vertical"
+    android:background="@drawable/gradient">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        >
+
+    </LinearLayout>
+
+  <!-- form -->
+     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+
+        android:weightSum="13"
+        android:orientation="vertical">
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="1"
+             ></LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="2"
+             android:weightSum="4"
+             android:orientation="horizontal"
+             >
+<!-- first -->
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="0.5"
+                 ></LinearLayout>
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="3">
+
+                 <EditText
+                     android:id="@+id/name"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:drawableLeft="@drawable/firstname"
+                     android:gravity="center"
+                     android:backgroundTint="@color/LightPurple"
+                     android:hint="First Name"
+                     android:inputType="textPersonName"
+                     android:textColorHint="#fff" />
+             </LinearLayout>
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="0.5"></LinearLayout>
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="1"
+             ></LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="2"
+             >
+             <!-- second 2 -->
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="0.5"
+                 ></LinearLayout>
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="3">
+
+                 <EditText
+                     android:id="@+id/prenom"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:drawableLeft="@drawable/firstname"
+                     android:gravity="center"
+                     android:backgroundTint="@color/LightPurple"
+                     android:hint="Last Name"
+                     android:inputType="textPersonName"
+                     android:textColorHint="#fff" />
+             </LinearLayout>
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="0.5"></LinearLayout>
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="1"
+             ></LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="2">
+             <!-- 3 -->
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="0.5"
+                 ></LinearLayout>
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="3">
+
+                 <EditText
+                     android:id="@+id/username"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:drawableLeft="@drawable/username"
+                     android:gravity="center"
+                     android:backgroundTint="@color/LightPurple"
+
+
+                     android:hint="Username"
+                     android:inputType="textPersonName"
+                     android:textColorHint="#fff" />
+             </LinearLayout>
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="0.5"></LinearLayout>
+         </LinearLayout>
+
+         <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:layout_weight="1"
+         ></LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="2"
+             >
+             <!-- 4 -->
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="0.5"
+                 ></LinearLayout>
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="3">
+
+                 <EditText
+                     android:id="@+id/password"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:drawableLeft="@drawable/passwrod"
+                     android:gravity="center"
+                     android:backgroundTint="@color/LightPurple"
+
+
+                     android:hint="Password"
+                     android:inputType="textPersonName"
+                     android:textColorHint="#fff" />
+             </LinearLayout>
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="0.5"></LinearLayout>
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="1"
+             ></LinearLayout>
+
+
+
+
+     </LinearLayout>
+  <!-- End-form -->
+
+    <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="2"
+        android:background="#B39DDB"
+        android:gravity="center"
+        android:weightSum="1">
+        <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signup"
+
+            android:textColor="@android:color/white"
+            android:layout_centerInParent="true"
+            android:background="@drawable/shapeb"
+            android:layout_weight="0.14" />
+    </LinearLayout>
+
+
+</LinearLayout>
