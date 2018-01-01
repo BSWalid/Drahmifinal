@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,10 +24,20 @@ public class TheLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_the_login);
 
-
-
         db = new Database(this);
         db.open();
+
+        String isconnected;
+        isconnected = db.getstatu();
+
+        if(!isconnected.equals("null"))
+        {
+            Intent i = new Intent(getApplicationContext(), Accounts.class);
+            i.putExtra("idofuser",isconnected);
+            startActivity(i);
+            finish();
+        }
+
 
         user = (EditText) findViewById(R.id.username);
         pass = (EditText) findViewById(R.id.password);
@@ -46,10 +57,14 @@ public class TheLogin extends AppCompatActivity {
                 Cursor c = db.getUserInfo(usertext, passText);
                 if(c.getCount() != 0)
                 {
-
-
+                   c.moveToFirst();
+                  String id = c.getString(0);
                     Intent i = new Intent(getApplicationContext(), Accounts.class);
                     startActivity(i);
+                    Log.i("Test","test3 : "+id);
+                    db.updateconnexion(id,"true");
+                    i.putExtra("idofuser",id);
+                    finish();
 
 
 
@@ -67,8 +82,13 @@ public class TheLogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                   Intent i = new Intent(getApplicationContext(), Signup.class);
                   startActivity(i);
+
+
+
+
 
 
 

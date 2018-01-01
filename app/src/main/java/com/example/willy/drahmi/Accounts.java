@@ -1,8 +1,15 @@
 package com.example.willy.drahmi;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.text.InputType;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,14 +19,52 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class Accounts extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Database db;
+    String idofuser;
+    TextView account;
+    String accountnamestring="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accounts);
+        db = new Database(this);
+        db.open();
+        account = (TextView) findViewById(R.id.accounts);
+
+        idofuser = getIntent().getStringExtra("idofuser");
+        String staut= db.getstatubyid(idofuser);
+        Log.i("Test","Access  " + staut);
+
+        // controll access
+        if( staut.equals("false") || staut.equals("null")){
+            Log.i("Test","Access");
+            Intent i = new Intent(getApplicationContext(), TheLogin.class);
+            startActivity(i);
+            finish();
+        }
+
+
+        Cursor c = db.GetAllAccountByID(idofuser);
+        accountnamestring="";
+
+        for(c.moveToFirst();!c.isAfterLast();c.moveToNext())
+        {
+            accountnamestring = accountnamestring+ "Compte : "+c.getString(1)+"Solde"+c.getString(2)+" \n";
+        }
+        account.setText(accountnamestring);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -27,19 +72,23 @@ public class Accounts extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                // we will do addaccount
+                addaccount();
             }
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        Log.i("Test","test2 : "+idofuser);
     }
 
     @Override
@@ -80,22 +129,65 @@ public class Accounts extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.logout)
+        {
+            db.updateconnexion(idofuser,"false");
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            Intent i = new Intent(getApplicationContext(), TheLogin.class);
+            startActivity(i);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void addaccount(){
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(Accounts.this);
+        myDialog.setTitle("add account");
+        LinearLayout LL = new LinearLayout(Accounts.this);
+        LL.setOrientation(LinearLayout.VERTICAL);
+        LL.setGravity(Gravity.CENTER);
+        TextView addaccount= new TextView(Accounts.this);
+        addaccount.setText("please fill in the account");
+        final EditText accountname= new EditText(Accounts.this);
+        accountname.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+
+        LL.addView(addaccount);
+        LL.addView(accountname);
+        myDialog.setView(LL);
+        myDialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String Accountnom= accountname.getText().toString();
+                db.insertAccount(Accountnom,idofuser);
+                Cursor c = db.GetAllAccountByID(idofuser);
+
+                   accountnamestring="";
+                for(c.moveToFirst();!c.isAfterLast();c.moveToNext())
+                {
+                    accountnamestring=accountnamestring + "Compte : "+c.getString(1)+"Solde"+c.getString(2)+" \n";
+                }
+                account.setText(accountnamestring);
+
+                Toast.makeText(getApplicationContext(),"the account has been add",Toast.LENGTH_LONG).show();
+
+            }
+        });
+        myDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        myDialog.show();
+
+
+
+
+
+
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -36,6 +37,7 @@ public class Database {
                     + " nom text ,"
                     + " prenom text ,"
                     + " username text ,"
+                    + "isconncted text ,"
                     + " password text );");
 
             db.execSQL("CREATE TABLE IF NOT EXISTS account("
@@ -119,8 +121,59 @@ public class Database {
         db.insert("user", null, values);
     }
 
+    public void insertAccount(String accountnom, String userid)
+    {
+        ContentValues values = new ContentValues();
+
+        values.put("accountname", accountnom);
+        values.put("fkuser", userid);
+        values.put("solde","0");
+        db.insert("account", null, values);
+    }
+
+    public Cursor GetAllAccountByID (String id)
+    {
+        return db.rawQuery("SELECT id, accountname,solde FROM account WHERE fkuser = "+id+"", null);
+    }
+
+
+
+
+
     public void updateYourPassword(String id, String password)
     {
         this.db.execSQL("UPDATE user SET password = '" + password + "' WHERE id="+id+"");
     }
+    public void updateconnexion(String id, String connexion)
+    {
+        Log.i("test","testofaccess " + id);
+        this.db.execSQL("UPDATE user SET isconncted = '" + connexion + "' WHERE id="+id+"");
+    }
+
+
+    public String getstatubyid(String id)
+    {
+        Cursor c =db.rawQuery("SELECT  isconncted  FROM user WHERE id LIKE '"+id+"'", null);
+
+        if (c.getCount()>0) {
+            c.moveToFirst();
+            return c.getString(0);
+        }
+        return "null";
+    }
+
+
+    public String getstatu()
+    {
+         Cursor c =db.rawQuery("SELECT id, isconncted  FROM user WHERE isconncted LIKE 'true' ", null);
+            Log.i("test",""+c.getCount());
+            if (c.getCount()>0) {
+            c.moveToFirst();
+                Log.i("test",""+c.getString(1));
+            return c.getString(0);
+            }
+        return "null";
+    }
+
+
 }

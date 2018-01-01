@@ -8,4 +8,17 @@
     tools:context="com.example.willy.drahmi.Accounts"
     tools:showIn="@layout/app_bar_accounts">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/accounts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+            </android.support.constraint.ConstraintLayout>
