@@ -1,5 +1,6 @@
 package com.example.willy.drahmi;
 
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -7,6 +8,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,6 +29,9 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Accounts extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -40,7 +46,7 @@ public class Accounts extends AppCompatActivity
         setContentView(R.layout.activity_accounts);
         db = new Database(this);
         db.open();
-        account = (TextView) findViewById(R.id.accounts);
+        account = (TextView) findViewById(R.id.accountname);
 
         idofuser = getIntent().getStringExtra("idofuser");
         String staut= db.getstatubyid(idofuser);
@@ -53,16 +59,7 @@ public class Accounts extends AppCompatActivity
             startActivity(i);
             finish();
         }
-
-
-        Cursor c = db.GetAllAccountByID(idofuser);
-        accountnamestring="";
-
-        for(c.moveToFirst();!c.isAfterLast();c.moveToNext())
-        {
-            accountnamestring = accountnamestring+ "Compte : "+c.getString(1)+"Solde"+c.getString(2)+" \n";
-        }
-        account.setText(accountnamestring);
+        updateliste();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -164,12 +161,7 @@ public class Accounts extends AppCompatActivity
                 db.insertAccount(Accountnom,idofuser);
                 Cursor c = db.GetAllAccountByID(idofuser);
 
-                   accountnamestring="";
-                for(c.moveToFirst();!c.isAfterLast();c.moveToNext())
-                {
-                    accountnamestring=accountnamestring + "Compte : "+c.getString(1)+"Solde"+c.getString(2)+" \n";
-                }
-                account.setText(accountnamestring);
+                updateliste();
 
                 Toast.makeText(getApplicationContext(),"the account has been add",Toast.LENGTH_LONG).show();
 
@@ -186,6 +178,30 @@ public class Accounts extends AppCompatActivity
 
 
 
+
+
+
+    }
+    public void updateliste(){
+
+        Cursor c = db.GetAllAccountByID(idofuser);
+        List<item> items =  new ArrayList<item>();
+
+
+        for(c.moveToFirst();!c.isAfterLast();c.moveToNext())
+        {
+            item item = new item();
+            item.setId(c.getString(0));
+            item.setName(c.getString(1));
+            item.setSolde(c.getString(2)+" $");
+            items.add(item);
+
+        }
+        ItemAdapter adapter = new ItemAdapter(items,getApplicationContext());
+        RecyclerView rv = ( RecyclerView) findViewById(R.id.list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        rv.setLayoutManager(layoutManager);
+        rv.setAdapter(adapter);
 
 
 

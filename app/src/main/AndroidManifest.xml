@@ -16,10 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Signup"></activity>
+        <activity android:name=".Signup" />
         <activity
             android:name=".Accounts"
             android:label="@string/title_activity_accounts"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".OutputInput"
+            android:label="@string/title_activity_output_input"
             android:theme="@style/AppTheme"></activity>
     </application>
 
