@@ -7,6 +7,8 @@ package com.example.willy.drahmi;
 public class item {
 
     String id;
+    String name;
+    String solde;
 
     public String getId() {
         return id;
@@ -32,8 +34,7 @@ public class item {
         this.solde = solde;
     }
 
-    String name;
-    String solde;
+
 
 
 }

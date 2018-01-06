@@ -96,6 +96,13 @@ public class Accounts extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+        updateliste();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateliste();
     }
 
     @Override

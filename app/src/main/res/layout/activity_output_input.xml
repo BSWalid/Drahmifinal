@@ -49,4 +49,15 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@+id/viewpager"
+        app:layout_anchorGravity="left|bottom"
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        tools:ignore="DuplicateIds" />
+
 </android.support.design.widget.CoordinatorLayout>

@@ -1,5 +1,6 @@
 package com.example.willy.drahmi;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,6 +15,7 @@ import java.util.List;
 public class SectionPageAdapter extends FragmentPagerAdapter {
     List <Fragment> fms = new ArrayList<>();
     List <String> ftagmenttitle= new ArrayList<>();
+    String idc;
 
 
     public SectionPageAdapter(FragmentManager fm) {
@@ -25,6 +27,7 @@ public class SectionPageAdapter extends FragmentPagerAdapter {
             ftagmenttitle.add(title);
 
         }
+
 
     @Override
     public CharSequence getPageTitle(int position) {
@@ -40,4 +43,5 @@ public class SectionPageAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return fms.size();
     }
+
 }
